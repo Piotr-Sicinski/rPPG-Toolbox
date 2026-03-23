@@ -1,0 +1,19 @@
+tmux
+cd sandbox/rPPG-Toolbox ; conda activate rppg-toolbox
+
+python main.py --config_file ./configs/field_infer_configs/PURE_FIELD_TSCAN_BASIC.yaml ; \
+python main.py --config_file ./configs/field_infer_configs/PURE_FIELD_PHYSNET_BASIC.yaml
+python main.py --config_file ./configs/field_infer_configs/PURE_FIELD_DEEPPHYS_BASIC.yaml ; \
+python main.py --config_file ./configs/field_infer_configs/PURE_FIELD_EFFICIENTPHYS.yaml ; \
+python main.py --config_file ./configs/field_infer_configs/PURE_FIELD_PHYSFORMER_BASIC.yaml ; \
+
+python main.py --config_file ./configs/field_infer_configs/UBFC-rPPG_FIELD_TSCAN_BASIC.yaml ; \
+python main.py --config_file ./configs/field_infer_configs/UBFC-rPPG_FIELD_PHYSNET_BASIC.yaml
+python main.py --config_file ./configs/field_infer_configs/UBFC-rPPG_FIELD_DEEPPHYS_BASIC.yaml ; \
+python main.py --config_file ./configs/field_infer_configs/UBFC-rPPG_FIELD_EFFICIENTPHYS.yaml ; \
+python main.py --config_file ./configs/field_infer_configs/UBFC-rPPG_FIELD_PHYSFORMER_BASIC.yaml
+python main.py --config_file ./configs/field_infer_configs/FIELD_UNSUPERVISED.yaml
+
+python main.py --config_file ./configs/
+
+ps -u -p 1234
