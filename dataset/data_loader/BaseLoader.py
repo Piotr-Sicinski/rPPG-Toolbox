@@ -23,7 +23,7 @@ try:
     # print("spawned")
 except RuntimeError:
     pass
-from dataset.data_loader.face_detector.YOLO11FaceRGB import YOLO11FaceRGB
+# from dataset.data_loader.face_detector.YOLO11FaceRGB import YOLO11FaceRGB
 import cv2
 import numpy as np
 import pandas as pd
@@ -615,7 +615,7 @@ class BaseLoader(Dataset):
         if not inputs:
             raise ValueError(self.dataset_name + ' dataset loading data error!')
         inputs = sorted(inputs)  # sort input file name list
-        labels = [input_file.replace("input", "label") for input_file in inputs]
+        labels = [input_file.replace("_input", "_label") for input_file in inputs] # PULL REQUEST?
         self.inputs = inputs
         self.labels = labels
         self.preprocessed_data_len = len(inputs)

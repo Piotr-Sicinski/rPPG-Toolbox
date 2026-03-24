@@ -13,7 +13,7 @@ TRAIN:
     DO_PREPROCESS: False              # if first time, should be true
     DATA_FORMAT: NDCHW
     DATA_PATH:  "/gscratch/ubicomp/xliu0/data3/mnt/Datasets/BP4DPlus/RawData" 
-    CACHED_PATH: "/gscratch/ubicomp/xliu0/data3/mnt/Datasets/rppg_toolbox/PreprocessedData"  # Processed dataset save path, need to be updated
+    CACHED_PATH: "/zfsauton/data/straps/pipeline/inputs/toolbox_cache/"
     EXP_DATA_NAME: "BigSmall_BP4DPlus_Big144_Small9_ChunkLen3_AUSubset_rPPGToolbox"
     FOLD:
       FOLD_NAME: 'Fold2_Train'
@@ -24,11 +24,11 @@ TRAIN:
       DO_CHUNK: True
       CHUNK_LENGTH: 3
       CROP_FACE:
-        DO_CROP_FACE: False
-        USE_LARGE_FACE_BOX: False
+        DO_CROP_FACE: True
+        USE_LARGE_FACE_BOX: True
         LARGE_BOX_COEF: 1.5
         DETECTION:
-          DO_DYNAMIC_DETECTION: False
+          DO_DYNAMIC_DETECTION: True
           DYNAMIC_DETECTION_FREQUENCY : 180
           USE_MEDIAN_FACE_BOX: False    # This should be used ONLY if dynamic detection is used
       BIGSMALL:
@@ -47,7 +47,7 @@ VALID:
     DO_PREPROCESS: False              # if first time, should be true
     DATA_FORMAT: NDCHW
     DATA_PATH:  "/gscratch/ubicomp/xliu0/data3/mnt/Datasets/BP4DPlus/RawData" 
-    CACHED_PATH: "/gscratch/ubicomp/xliu0/data3/mnt/Datasets/rppg_toolbox/PreprocessedData"  # Processed dataset save path, need to be updated
+    CACHED_PATH: "/zfsauton/data/straps/pipeline/inputs/toolbox_cache/"
     EXP_DATA_NAME: "BigSmall_BP4DPlus_Big144_Small9_ChunkLen3_AUSubset_rPPGToolbox"
     FOLD:
       FOLD_NAME: 'Fold2_Test'
@@ -58,11 +58,11 @@ VALID:
       DO_CHUNK: True
       CHUNK_LENGTH: 3
       CROP_FACE:
-        DO_CROP_FACE: False
-        USE_LARGE_FACE_BOX: False
+        DO_CROP_FACE: True
+        USE_LARGE_FACE_BOX: True
         LARGE_BOX_COEF: 1.5
         DETECTION:
-          DO_DYNAMIC_DETECTION: False
+          DO_DYNAMIC_DETECTION: True
           DYNAMIC_DETECTION_FREQUENCY: 180
           USE_MEDIAN_FACE_BOX: False    # This should be used ONLY if dynamic detection is used
       BIGSMALL:
@@ -83,7 +83,7 @@ TEST:
     DO_PREPROCESS: False              # if first time, should be true
     DATA_FORMAT: NDCHW
     DATA_PATH:  "/gscratch/ubicomp/xliu0/data3/mnt/Datasets/BP4DPlus/RawData" 
-    CACHED_PATH: "/gscratch/ubicomp/xliu0/data3/mnt/Datasets/rppg_toolbox/PreprocessedData"  # Processed dataset save path, need to be updated
+    CACHED_PATH: "/zfsauton/data/straps/pipeline/inputs/toolbox_cache/"
     EXP_DATA_NAME: "BigSmall_BP4DPlus_Big144_Small9_ChunkLen3_AUSubset_rPPGToolbox"
     FOLD:
       FOLD_NAME: 'Fold2_Test'
@@ -94,11 +94,11 @@ TEST:
       DO_CHUNK: True
       CHUNK_LENGTH: 3
       CROP_FACE:
-        DO_CROP_FACE: False
-        USE_LARGE_FACE_BOX: False
+        DO_CROP_FACE: True
+        USE_LARGE_FACE_BOX: True
         LARGE_BOX_COEF: 1.5
         DETECTION:
-          DO_DYNAMIC_DETECTION: False
+          DO_DYNAMIC_DETECTION: True
           DYNAMIC_DETECTION_FREQUENCY: 180
           USE_MEDIAN_FACE_BOX: False    # This should be used ONLY if dynamic detection is used
       BIGSMALL:
