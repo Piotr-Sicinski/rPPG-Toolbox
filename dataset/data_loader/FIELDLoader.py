@@ -68,7 +68,7 @@ class FIELDLoader(BaseLoader):
         return data_dirs_new
     
     def multi_process_manager(self, data_dirs, config_preprocess):
-        return super().multi_process_manager(data_dirs, config_preprocess, multi_process_quota=8)
+        return super().multi_process_manager(data_dirs, config_preprocess, multi_process_quota=2)
 
     def preprocess_dataset_subprocess(self, data_dirs, config_preprocess, i, file_list_dict):
         """ invoked by preprocess_dataset for multi_process."""

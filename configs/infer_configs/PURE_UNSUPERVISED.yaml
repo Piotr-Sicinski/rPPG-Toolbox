@@ -8,7 +8,7 @@ UNSUPERVISED:
     DATASET: PURE
     DO_PREPROCESS: False               # if first time, should be true
     DATA_FORMAT: NDHWC
-    DATA_PATH: "/zfsauton/data/straps/PURE/"                     # Raw dataset path, need to be updated
+    DATA_PATH: "/zfsauton/data/straps/PURE/"
     CACHED_PATH: "/zfsauton/data/straps/pipeline/inputs/toolbox_cache/"
     EXP_DATA_NAME: ""
     BEGIN: 0.0

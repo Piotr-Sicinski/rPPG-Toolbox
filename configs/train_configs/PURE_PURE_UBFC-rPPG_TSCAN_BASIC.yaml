@@ -11,7 +11,7 @@ TRAIN:
     DATASET: PURE
     DO_PREPROCESS: False               # if first time, should be true
     DATA_FORMAT: NDCHW
-    DATA_PATH: "/gscratch/ubicomp/xliu0/data3/mnt/Datasets/PURE/RawData"                     # Raw dataset path, need to be updated
+    DATA_PATH: "/zfsauton/data/straps/PURE/"                     # Raw dataset path, need to be updated
     CACHED_PATH: "/zfsauton/data/straps/pipeline/inputs/toolbox_cache/"
     EXP_DATA_NAME: ""
     BEGIN: 0.0
@@ -40,7 +40,7 @@ VALID:
     DATASET: PURE
     DO_PREPROCESS: False                  # if first time, should be true
     DATA_FORMAT: NDCHW
-    DATA_PATH: "/gscratch/ubicomp/xliu0/data3/mnt/Datasets/PURE/RawData"                     # Raw dataset path, need to be updated
+    DATA_PATH: "/zfsauton/data/straps/PURE/"                     # Raw dataset path, need to be updated
     CACHED_PATH: "/zfsauton/data/straps/pipeline/inputs/toolbox_cache/"
     EXP_DATA_NAME: ""
     BEGIN: 0.8
@@ -71,7 +71,7 @@ TEST:
     DATASET: UBFC-rPPG
     DO_PREPROCESS: False                    # if first time, should be true
     DATA_FORMAT: NDCHW
-    DATA_PATH: "/gscratch/ubicomp/xliu0/data3/mnt/Datasets/UBFC-rPPG/RawData"          # need to be updated
+    DATA_PATH: "/zfsauton/data/straps/UBFC-rPPG/UBFC_DATASET/DATASET_2/"          # need to be updated
     CACHED_PATH: "/zfsauton/data/straps/pipeline/inputs/toolbox_cache/"
     EXP_DATA_NAME: ""
     BEGIN: 0.0

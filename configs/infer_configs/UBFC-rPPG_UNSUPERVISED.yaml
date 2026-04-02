@@ -8,7 +8,7 @@ UNSUPERVISED:
     DATASET: UBFC-rPPG
     DO_PREPROCESS: False              # if first time, should be true
     DATA_FORMAT: NDHWC
-    DATA_PATH: "/zfsauton/data/straps/UBFC-rPPG/UBFC_DATASET/DATASET_2/"                     # Raw dataset path, need to be updated
+    DATA_PATH: "/zfsauton/data/straps/UBFC-rPPG/UBFC_DATASET/DATASET_2/"
     CACHED_PATH: "/zfsauton/data/straps/pipeline/inputs/toolbox_cache/"
     EXP_DATA_NAME: ""
     BEGIN: 0.0

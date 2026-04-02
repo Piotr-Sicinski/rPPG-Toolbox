@@ -11,7 +11,7 @@ TRAIN:
     DATASET: UBFC-rPPG
     DO_PREPROCESS: False                 # if first time, should be true
     DATA_FORMAT: NDCHW
-    DATA_PATH: "/data/UBFC-rPPG/DATASET_2"                     # Raw dataset path, need to be updated
+    DATA_PATH: "/zfsauton/data/straps/UBFC-rPPG/UBFC_DATASET/DATASET_2/"                     # Raw dataset path, need to be updated
     CACHED_PATH: "/zfsauton/data/straps/pipeline/inputs/toolbox_cache/"
     EXP_DATA_NAME: ""
     BEGIN: 0.0
@@ -40,7 +40,7 @@ VALID:
     DATASET: UBFC-rPPG
     DO_PREPROCESS: False                 # if first time, should be true
     DATA_FORMAT: NDCHW
-    DATA_PATH: "/data/UBFC-rPPG/DATASET_2"                     # Raw dataset path, need to be updated
+    DATA_PATH: "/zfsauton/data/straps/UBFC-rPPG/UBFC_DATASET/DATASET_2/"                     # Raw dataset path, need to be updated
     CACHED_PATH: "/zfsauton/data/straps/pipeline/inputs/toolbox_cache/"
     EXP_DATA_NAME: ""
     BEGIN: 0.8
@@ -71,7 +71,7 @@ TEST:
     DATASET: PURE
     DO_PREPROCESS: False                 # if first time, should be true
     DATA_FORMAT: NDCHW
-    DATA_PATH: "/data/PURE"                     # Raw dataset path, need to be updated
+    DATA_PATH: "/zfsauton/data/straps/PURE/"                     # Raw dataset path, need to be updated
     CACHED_PATH: "/zfsauton/data/straps/pipeline/inputs/toolbox_cache/"
     EXP_DATA_NAME: ""
     BEGIN: 0.0
