@@ -219,12 +219,37 @@ class BaseLoader(Dataset):
             begin(float): index of begining during train/val split.
             end(float): index of ending during train/val split.
         """
-        data_dirs_split = self.split_raw_data(data_dirs, begin, end)  # partition dataset 
-        # send data directories to be processed
-        file_list_dict = self.multi_process_manager(data_dirs_split, config_preprocess) 
+        data_dirs_split = self.split_raw_data(data_dirs, begin, end)  # partition dataset
+
+        # When FORCE_RECALCULATE_NPY is False, skip subjects that already have output files
+        # so no video reading, face detection, or resizing is performed for them.
+        cached_file_list = []
+        if not FORCE_RECALCULATE_NPY and os.path.exists(self.cached_path):
+            dirs_to_process = []
+            for entry in data_dirs_split:
+                existing = glob.glob(
+                    self.cached_path + os.sep + "{0}_input*.npy".format(entry['index']))
+                if existing:
+                    cached_file_list += existing
+                else:
+                    dirs_to_process.append(entry)
+            skipped = len(data_dirs_split) - len(dirs_to_process)
+            if skipped:
+                print(f"Skipping {skipped} already-preprocessed subject(s) "
+                      f"({len(dirs_to_process)} remaining).")
+        else:
+            dirs_to_process = data_dirs_split
+
+        file_list_dict = self.multi_process_manager(dirs_to_process, config_preprocess)
+
+        # Merge cached entries into the file list alongside freshly processed ones
+        if cached_file_list:
+            next_key = max(file_list_dict.keys(), default=-1) + 1
+            file_list_dict[next_key] = cached_file_list
+
         self.build_file_list(file_list_dict)  # build file list
         self.load_preprocessed_data()  # load all data and corresponding labels (sorted for consistency)
-        print("Total Number of raw files preprocessed:", len(data_dirs_split), end='\n\n')
+        print("Total Number of raw files preprocessed:", len(dirs_to_process), end='\n\n')
 
     def preprocess(self, frames, bvps, config_preprocess):
         """Preprocesses a pair of data.
@@ -542,7 +567,9 @@ class BaseLoader(Dataset):
             pbar.update(1)
         pbar.close()
 
-        return file_list_dict
+        # Convert from manager proxy to a plain dict so callers can safely add keys
+        # after the multiprocessing manager shuts down.
+        return dict(file_list_dict)
 
     def build_file_list(self, file_list_dict):
         """Build a list of files used by the dataloader for the data split. Eg. list of files used for 

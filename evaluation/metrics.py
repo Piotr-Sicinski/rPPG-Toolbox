@@ -43,6 +43,22 @@ def _reform_data_from_dict(data, flatten=True):
     return sort_data
 
 
+def _inference_results_row(filename, chunk_index, chunk_start, y_true, y_pred):
+    """One row matching pipeline UnsupervisedModelHandler.save_results (inference_results.csv).
+    y_true and y_pred are raw signal arrays (one value per frame in the window)."""
+    def _to_list(arr):
+        if hasattr(arr, "tolist"):
+            return arr.tolist()
+        return list(arr)
+    return {
+        "filename": str(filename),
+        "chunk_index": int(chunk_index),
+        "chunk_start": int(chunk_start),
+        "y_true": _to_list(y_true),
+        "y_pred": _to_list(y_pred),
+    }
+
+
 def extract_participant_id_from_index(index):
     """Extract participant ID from video index for supervised models."""
     # Handle different naming conventions
@@ -138,7 +154,9 @@ def calculate_metrics(predictions, labels, config):
     
     # Store per-participant results
     participant_results = {}
-    
+    # Rows for inference_results.csv (pipeline-compatible: filename, chunk_index, chunk_start, y_true, y_pred)
+    inference_results_rows = []
+
     print("Calculating metrics with per-participant analysis!")
     for index in tqdm(predictions.keys(), ncols=80):
         prediction = _reform_data_from_dict(predictions[index])
@@ -166,6 +184,7 @@ def calculate_metrics(predictions, labels, config):
         else:
             window_frame_size = video_frame_size
 
+        video_chunk_index = 0
         for i in range(0, len(prediction), window_frame_size):
             pred_window = prediction[i:i+window_frame_size]
             label_window = label[i:i+window_frame_size]
@@ -186,6 +205,11 @@ def calculate_metrics(predictions, labels, config):
                 gt_hr_peak, pred_hr_peak, SNR, macc = calculate_metric_per_video(
                     pred_window, label_window, diff_flag=diff_flag_test, fs=config.TEST.DATA.FS, hr_method='Peak')
                 
+                inference_results_rows.append(
+                    _inference_results_row(index, video_chunk_index, i, label_window, pred_window)
+                )
+                video_chunk_index += 1
+
                 # Store per participant
                 participant_results[participant_id]['predictions_peak'].append(pred_hr_peak)
                 participant_results[participant_id]['ground_truth_peak'].append(gt_hr_peak)
@@ -201,6 +225,11 @@ def calculate_metrics(predictions, labels, config):
                 gt_hr_fft, pred_hr_fft, SNR, macc = calculate_metric_per_video(
                     pred_window, label_window, diff_flag=diff_flag_test, fs=config.TEST.DATA.FS, hr_method='FFT')
                 
+                inference_results_rows.append(
+                    _inference_results_row(index, video_chunk_index, i, label_window, pred_window)
+                )
+                video_chunk_index += 1
+
                 # Store per participant
                 participant_results[participant_id]['predictions_fft'].append(pred_hr_fft)
                 participant_results[participant_id]['ground_truth_fft'].append(gt_hr_fft)
@@ -276,6 +305,12 @@ def calculate_metrics(predictions, labels, config):
                 'relative_error': abs(pred - gt) / gt * 100 if gt != 0 else 0
             })
     
+    if inference_results_rows:
+        df_infer = pd.DataFrame(inference_results_rows)
+        inference_filename = f"{results_dir}/inference_results.csv"
+        df_infer.to_csv(inference_filename, index=False)
+        print(f"Pipeline-compatible inference results saved to: {inference_filename}")
+
     # Save window-level data (this is your primary output with individual predictions)
     if window_data_list:
         df_windows = pd.DataFrame(window_data_list)

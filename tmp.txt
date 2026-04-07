@@ -1,0 +1,21 @@
+ln -s /zfsauton2/home/psicinsk/mgr/rPPG-Toolbox/configs/infer_configs/PURE_UNSUPERVISED.yaml pipeline_inputs/infer_configs/PURE_UNSUPERVISED.yaml
+ln -s /zfsauton2/home/psicinsk/mgr/rPPG-Toolbox/configs/infer_configs/UBFC-rPPG_UNSUPERVISED.yaml pipeline_inputs/infer_configs/UBFC-rPPG_UNSUPERVISED.yaml
+ln -s /zfsauton2/home/psicinsk/mgr/rPPG-Toolbox/configs/train_configs/UBFC-rPPG_UBFC-rPPG_PURE_TSCAN_BASIC.yaml pipeline_inputs/train_configs/UBFC-rPPG_UBFC-rPPG_PURE_TSCAN_BASIC.yaml
+ln -s /zfsauton2/home/psicinsk/mgr/rPPG-Toolbox/configs/train_configs/PURE_PURE_UBFC-rPPG_TSCAN_BASIC.yaml pipeline_inputs/train_configs/PURE_PURE_UBFC-rPPG_TSCAN_BASIC.yaml
+ln -s /zfsauton2/home/psicinsk/mgr/rPPG-Toolbox/configs/train_configs/UBFC-rPPG_UBFC-rPPG_PURE_RHYTHMFORMER_BASIC.yaml pipeline_inputs/train_configs/UBFC-rPPG_UBFC-rPPG_PURE_RHYTHMFORMER_BASIC.yaml
+ln -s /zfsauton2/home/psicinsk/mgr/rPPG-Toolbox/configs/train_configs/PURE_PURE_UBFC-rPPG_RHYTHMFORMER_BASIC.yaml pipeline_inputs/train_configs/PURE_PURE_UBFC-rPPG_RHYTHMFORMER_BASIC.yaml
+ln -s /zfsauton2/home/psicinsk/mgr/rPPG-Toolbox/configs/infer_configs/UBFC-rPPG_PURE_TSCAN_BASIC.yaml pipeline_inputs/infer_configs/UBFC-rPPG_PURE_TSCAN_BASIC.yaml
+ln -s /zfsauton2/home/psicinsk/mgr/rPPG-Toolbox/configs/infer_configs/PURE_UBFC-rPPG_TSCAN_BASIC.yaml pipeline_inputs/infer_configs/PURE_UBFC-rPPG_TSCAN_BASIC.yaml
+ln -s /zfsauton2/home/psicinsk/mgr/rPPG-Toolbox/configs/infer_configs/UBFC-rPPG_PURE_RHYTHMFORMER.yaml pipeline_inputs/infer_configs/UBFC-rPPG_PURE_RHYTHMFORMER.yaml
+ln -s /zfsauton2/home/psicinsk/mgr/rPPG-Toolbox/configs/infer_configs/PURE_UBFC-rPPG_RHYTHMFORMER_BASIC.yaml pipeline_inputs/infer_configs/PURE_UBFC-rPPG_RHYTHMFORMER_BASIC.yaml
+
+
+/zfsauton/data/straps/pipeline/inputs/toolbox_cache/resultsFineFFT/POS_PURE/inference_results.csv
+/zfsauton/data/straps/pipeline/inputs/toolbox_cache/resultsFineFFT/CHROM_PURE/inference_results.csv
+/zfsauton/data/straps/pipeline/inputs/toolbox_cache/resultsFineFFT/UBFC_UBFC_PURE_tscan_Epoch29_PURE/inference_results.csv
+/zfsauton/data/straps/pipeline/inputs/toolbox_cache/resultsFineFFT/UBFC_PURE_RhythmFormer_Epoch29_PURE/inference_results.csv
+
+/zfsauton/data/straps/pipeline/inputs/toolbox_cache/resultsFineFFT/POS_UBFC-rPPG/inference_results.csv
+/zfsauton/data/straps/pipeline/inputs/toolbox_cache/resultsFineFFT/CHROM_UBFC-rPPG/inference_results.csv
+/zfsauton/data/straps/pipeline/inputs/toolbox_cache/resultsFineFFT/PURE_PURE_UBFC_tscan_Epoch29_UBFC-rPPG/inference_results.csv
+/zfsauton/data/straps/pipeline/inputs/toolbox_cache/resultsFineFFT/PURE_UBFC_RhythmFormer_Epoch29_UBFC-rPPG/inference_results.csv

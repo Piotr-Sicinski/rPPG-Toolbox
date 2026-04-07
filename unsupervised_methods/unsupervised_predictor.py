@@ -13,6 +13,34 @@ from unsupervised_methods.methods.OMIT import *
 from tqdm import tqdm
 from evaluation.BlandAltmanPy import BlandAltman
 
+
+def _inference_results_row(filename, chunk_index, chunk_start, y_true, y_pred):
+    """One row matching pipeline UnsupervisedModelHandler.save_results (inference_results.csv).
+    y_true and y_pred are raw signal arrays (one value per frame in the window)."""
+    def _to_list(arr):
+        if hasattr(arr, "tolist"):
+            return arr.tolist()
+        return list(arr)
+    return {
+        "filename": str(filename),
+        "chunk_index": int(chunk_index),
+        "chunk_start": int(chunk_start),
+        "y_true": _to_list(y_true),
+        "y_pred": _to_list(y_pred),
+    }
+
+
+def _clip_filename(test_batch, batch_idx, idx, participant_id):
+    """Best-effort clip id for pipeline-compatible CSV; falls back if path metadata is missing."""
+    try:
+        if len(test_batch) > 2 and hasattr(test_batch[2], "__getitem__"):
+            filename = test_batch[2][idx]
+            return str(filename)
+    except Exception:
+        pass
+    return f"{participant_id}__batch{batch_idx}_idx{idx}"
+
+
 def extract_participant_id(test_batch, batch_idx, idx):
     """
     Extract participant ID from the test batch.
@@ -133,7 +161,8 @@ def unsupervised_predict(config, data_loader, method_name):
     
     # Store results per participant
     participant_results = {}
-    
+    inference_results_rows = []
+
     # Global aggregation (keep original functionality)
     predict_hr_peak_all = []
     gt_hr_peak_all = []
@@ -191,6 +220,9 @@ def unsupervised_predict(config, data_loader, method_name):
             else:
                 window_frame_size = video_frame_size
 
+            clip_filename = _clip_filename(test_batch, batch_idx, idx, participant_id)
+            video_chunk_index = 0
+
             # Process windows for this participant
             for i in range(0, len(BVP), window_frame_size):
                 BVP_window = BVP[i:i+window_frame_size]
@@ -204,6 +236,11 @@ def unsupervised_predict(config, data_loader, method_name):
                     gt_hr, pre_hr, SNR, macc = calculate_metric_per_video(BVP_window, label_window, diff_flag=False,
                                                                     fs=config.UNSUPERVISED.DATA.FS, hr_method='Peak')
                     
+                    inference_results_rows.append(
+                        _inference_results_row(clip_filename, video_chunk_index, i, label_window, BVP_window)
+                    )
+                    video_chunk_index += 1
+
                     # Store per participant
                     participant_results[participant_id]['predictions_peak'].append(pre_hr)
                     participant_results[participant_id]['ground_truth_peak'].append(gt_hr)
@@ -220,6 +257,11 @@ def unsupervised_predict(config, data_loader, method_name):
                     gt_fft_hr, pre_fft_hr, SNR, macc = calculate_metric_per_video(BVP_window, label_window, diff_flag=False,
                                                                     fs=config.UNSUPERVISED.DATA.FS, hr_method='FFT')
                     
+                    inference_results_rows.append(
+                        _inference_results_row(clip_filename, video_chunk_index, i, label_window, BVP_window)
+                    )
+                    video_chunk_index += 1
+
                     # Store per participant
                     participant_results[participant_id]['predictions_fft'].append(pre_fft_hr)
                     participant_results[participant_id]['ground_truth_fft'].append(gt_fft_hr)
@@ -272,6 +314,12 @@ def unsupervised_predict(config, data_loader, method_name):
         # Create results directory if it doesn't exist
         results_dir = f"/zfsauton/data/straps/pipeline/inputs/toolbox_cache/resultsFineFFT/{filename_id}"
         os.makedirs(results_dir, exist_ok=True)
+
+        if inference_results_rows:
+            df_infer = pd.DataFrame(inference_results_rows)
+            inference_filename = f"{results_dir}/inference_results.csv"
+            df_infer.to_csv(inference_filename, index=False)
+            print(f"Pipeline-compatible inference results saved to: {inference_filename}")
         
         # Save per-participant metrics
         csv_filename = f"{results_dir}/per_participant_metrics.csv"

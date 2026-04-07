@@ -1,13 +1,15 @@
 #!/bin/bash
 #SBATCH --job-name=toolbox_preprocess
-#SBATCH --ntasks=4
+#SBATCH --ntasks=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
-#SBATCH --mem=128G
+#SBATCH --mem=32G
 #SBATCH --time=10:00:00
 #SBATCH --output=runs/slurm_logs/job_%j_%t.out
 #SBATCH --error=runs/slurm_logs/job_%j_%t.err
-#SBATCH --gpus-per-task=1
+# #SBATCH --gpus-per-task=1
+#SBATCH --gres=gpu:a5000:1
+
 
 source ~/.bashrc
 eval "$(conda shell.bash hook)"
@@ -21,9 +23,10 @@ cd /zfsauton2/home/psicinsk/mgr/rPPG-Toolbox
 # python main.py --config_file ./configs/infer_configs/SCAMPS_UNSUPERVISED.yaml
 # python main.py --config_file ./configs/field_infer_configs/FIELD_UNSUPERVISED.yaml
 
+# python main.py --config_file ./configs/train_configs/UBFC-rPPG_UBFC-rPPG_PURE_TSCAN_BASIC.yaml
+# python main.py --config_file ./configs/train_configs/PURE_PURE_UBFC-rPPG_TSCAN_BASIC.yaml
 
-python main.py --config_file ./configs/train_configs/UBFC-rPPG_UBFC-rPPG_PURE_RHYTHMFORMER_BASIC.yaml
-python main.py --config_file ./configs/train_configs/UBFC-rPPG_UBFC-rPPG_PURE_TSCAN_BASIC.yaml
-
-python main.py --config_file ./configs/train_configs/PURE_PURE_UBFC-rPPG_RHYTHMFORMER_BASIC.yaml
-python main.py --config_file ./configs/train_configs/PURE_PURE_UBFC-rPPG_TSCAN_BASIC.yaml
+python main.py --config_file ./configs/pipeline_inputs/infer_configs/PURE_UBFC-rPPG_RHYTHMFORMER_BASIC.yaml
+python main.py --config_file ./configs/pipeline_inputs/infer_configs/UBFC-rPPG_PURE_RHYTHMFORMER.yaml
+python main.py --config_file ./configs/pipeline_inputs/infer_configs/PURE_UBFC-rPPG_TSCAN_BASIC.yaml
+python main.py --config_file ./configs/pipeline_inputs/infer_configs/UBFC-rPPG_PURE_TSCAN_BASIC.yaml
