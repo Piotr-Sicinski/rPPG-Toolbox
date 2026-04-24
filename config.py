@@ -368,6 +368,10 @@ _C.INFERENCE.MODEL_PATH = ''
 # -----------------------------------------------------------------------------
 _C.DEVICE = "cuda:0"
 _C.NUM_OF_GPU_TRAIN = 1
+# Number of DataLoader worker processes. Reduce this if you are loading data
+# from a slow network filesystem (NFS) to avoid saturating I/O bandwidth.
+# Set to 0 to load data in the main process (slowest but most compatible).
+_C.NUM_WORKERS = 4
 
 # -----------------------------------------------------------------------------
 # Log settings

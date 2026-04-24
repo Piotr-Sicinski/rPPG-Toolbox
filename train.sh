@@ -23,10 +23,10 @@ cd /zfsauton2/home/psicinsk/mgr/rPPG-Toolbox
 
 
 # python main.py --config_file ./configs/train_configs/UBFC-rPPG_UBFC-rPPG_PURE_RHYTHMFORMER_BASIC.yaml
-python main.py --config_file ./configs/train_configs/PURE_PURE_UBFC-rPPG_RHYTHMFORMER_BASIC.yaml
+# python main.py --config_file ./configs/train_configs/PURE_PURE_UBFC-rPPG_RHYTHMFORMER_BASIC.yaml
 
-# python main.py --config_file ./configs/train_configs/UBFC-rPPG_UBFC-rPPG_PURE_TSCAN_BASIC.yaml
-# python main.py --config_file ./configs/train_configs/PURE_PURE_UBFC-rPPG_TSCAN_BASIC.yaml
+python main.py --config_file ./configs/train_configs/UBFC-rPPG_UBFC-rPPG_PURE_TSCAN_BASIC.yaml
+python main.py --config_file ./configs/train_configs/PURE_PURE_UBFC-rPPG_TSCAN_BASIC.yaml
 
 # srun --exclusive -N1 -n1 python main.py --config_file ./configs/train_configs/UBFC-rPPG_UBFC-rPPG_PURE_RHYTHMFORMER_BASIC.yaml &
 # srun --exclusive -N1 -n1 python main.py --config_file ./configs/train_configs/UBFC-rPPG_UBFC-rPPG_PURE_TSCAN_BASIC.yaml &

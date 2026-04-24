@@ -17,12 +17,14 @@ from unsupervised_methods import utils
 import math
 import multiprocessing as mp
 
-# To be used only for preparing data - for detecting face with YOLO5Face
+# 'spawn' is required globally to prevent CUDA+fork deadlocks: when the main
+# process has already initialized CUDA (for model loading), forked DataLoader
+# workers inherit the CUDA context and deadlock. Spawned workers start fresh.
 try:
     mp.set_start_method('spawn', force=True)
-    # print("spawned")
 except RuntimeError:
     pass
+
 # from dataset.data_loader.face_detector.YOLO11FaceRGB import YOLO11FaceRGB
 import cv2
 import numpy as np
@@ -30,6 +32,8 @@ import pandas as pd
 import torch
 from torch.utils.data import Dataset
 from tqdm import tqdm
+
+FORCE_RECALCULATE_NPY = False
 
 class BaseLoader(Dataset):
     """The base class for data loading based on pytorch Dataset.
